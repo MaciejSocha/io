@@ -16,7 +16,7 @@ public class Curl {
         this.serverPath = serverPath;
     }
 
-    public void getData(String id) {
+    public InputStream getData(String id) {
         String charset = "UTF-8";
         String param1 = "--location";
         String param2 = "--request GET";
@@ -24,6 +24,7 @@ public class Curl {
         String query = null;
         URLConnection connection = null;
         InputStream response = null;
+        InputStream result = null;
 
         try {
             query = String.format("param1=%s&param2=%s&param3=%s",
@@ -47,6 +48,9 @@ public class Curl {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        result = response;
+
         File file = new File("out.json");
         if (!file.exists()) {
             try {
@@ -55,11 +59,14 @@ public class Curl {
                 e.printStackTrace();
             }
         }
+        return result;
             /*
         try (Scanner scanner = new Scanner(response)) {
             String responseBody = scanner.useDelimiter("\\A").next();
             System.out.println(responseBody);
         }
+
+
 */
     }
 

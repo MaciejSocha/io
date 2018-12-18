@@ -1,15 +1,30 @@
 import importdata.Curl;
+import importdata.JsonRead;
+import org.apache.commons.io.FileUtils;
 import plot.Plot;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class Main {
 
     public static void main(String[] args) {
         Curl curl = new Curl("https://gnuplot.000webhostapp.com/ballotResult/0.json");
-
         curl.getData(null);
+
+        File f = new File("out.json");
+        String in = null;
+        try {
+            in = FileUtils.readFileToString(f);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        JsonRead jsonRead = new JsonRead(in);
+
+        jsonRead.read();
     }
 
     private void plotTest() {
