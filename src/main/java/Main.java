@@ -1,12 +1,13 @@
 import importdata.Curl;
 import importdata.JsonRead;
 import org.apache.commons.io.FileUtils;
+import plot.DrawPlot;
 import plot.Plot;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Map;
 
 public class Main {
 
@@ -24,7 +25,10 @@ public class Main {
 
         JsonRead jsonRead = new JsonRead(in);
 
-        jsonRead.read();
+        Map<String, Double> map = jsonRead.read();
+
+        DrawPlot dp = new DrawPlot(map);
+        dp.draw("obr");
     }
 
     private void plotTest() {

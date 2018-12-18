@@ -17,22 +17,24 @@ public class JsonRead {
         this.file = file;
     }
 
-    public void read() {
+    public Map<String, Double> read() {
         JSONObject obj = new JSONObject(file);
 
 
         JSONArray names = (JSONArray) obj.get("ballotResult");
 
-        Map<String, Integer> wyn = new HashMap<>();
+        Map<String, Double> wyn = new HashMap<>();
         String p1;
-        Integer i1;
+        Double i1;
         for (int i=0;i<names.length();i++) {
             p1 = names.getJSONObject(i).getString("name");
-            i1 = names.getJSONObject(i).getInt("votes");
+            i1 = Double.valueOf(String.valueOf(names.getJSONObject(i).getInt("votes")));
             wyn.put(p1, i1);
         }
 
-        System.out.println(Arrays.asList(wyn));
+        //System.out.println(Arrays.asList(wyn));
+
+        return wyn;
     }
 
 }
