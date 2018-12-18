@@ -1,3 +1,4 @@
+import importdata.Curl;
 import plot.Plot;
 
 import java.awt.*;
@@ -6,6 +7,12 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) {
+        Curl curl = new Curl("https://gnuplot.000webhostapp.com/ballotResult/0.json");
+
+        curl.getData(null);
+    }
+
+    private void plotTest() {
         System.out.println("Hello World!");
         Plot plot = Plot.plot(null).series("test1", Plot.data().xy(1,2).xy(2,3), null);
         try {
@@ -35,4 +42,5 @@ public class Main {
             e.printStackTrace();
         }
     }
+
 }
