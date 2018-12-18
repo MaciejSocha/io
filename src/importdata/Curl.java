@@ -1,9 +1,12 @@
 package importdata;
 
+import javax.sound.midi.Patch;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Curl {
@@ -44,14 +47,20 @@ public class Curl {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
+        File file = new File("out.json");
+        if (!file.exists()) {
+            try {
+                Files.copy(response, file.toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+            /*
         try (Scanner scanner = new Scanner(response)) {
             String responseBody = scanner.useDelimiter("\\A").next();
             System.out.println(responseBody);
         }
-
+*/
     }
-
 
 }
