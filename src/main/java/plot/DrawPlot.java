@@ -7,9 +7,11 @@ import java.util.List;
 
 public class DrawPlot {
     private Map<String, Double> data;
+    private Random rng;
 
     public DrawPlot(Map data) {
         this.data=data;
+        rng = new Random();
     }
 
     public void draw(String fileName) {
@@ -29,13 +31,15 @@ public class DrawPlot {
             .legend(Plot.LegendFormat.BOTTOM));
 
         plot.xAxis("", Plot.axisOpts().range(0,Collections.max(numbers)+1))
-        .yAxis("Ilość głosów", Plot.axisOpts().range(0, Collections.max(glosy)+10));
+        .yAxis("Głosy", Plot.axisOpts().range(0, Collections.max(glosy)+10));
 
         for (int i=0;i<nazwiska.size();i++) {
             plot.series(nazwiska.get(i),
                     Plot.data()
                             .xy(numbers.get(i), glosy.get(i)),
-                    Plot.seriesOpts().line(Plot.Line.NONE).marker(Plot.Marker.COLUMN)
+                    Plot.seriesOpts().line(Plot.Line.NONE)
+                                     .marker(Plot.Marker.COLUMN)
+                                     .color(Color.getHSBColor(rng.nextFloat(),1,1))
             );
         }
         try {
